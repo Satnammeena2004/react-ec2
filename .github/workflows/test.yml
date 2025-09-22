@@ -11,17 +11,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
       - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version: "18"
-          cache: npm
+          cache: pnpm
 
       - name: Install Dependecies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Build production
-        run: npm run build
+        run: pnpm run build
 
       - name: create deployment package
         run: |
