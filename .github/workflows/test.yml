@@ -22,8 +22,8 @@ jobs:
           node-version: "18"
           cache: pnpm
 
-      - name: Install Dependecies
-        run: pnpm install --frozen-lockfile
+      - name: Install Dependencies
+        run: pnpm install
 
       - name: Build production
         run: pnpm run build
