@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+     "pm2:dev": "pm2 start pnpm --name react-app -- run dev",
     "preview": "vite preview"
   },
   "dependencies": {
