@@ -40,3 +40,15 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           source: "deployment-package.tar.gz"
           target: "~/react-app/"
+
+      - name: Serve Dist and Cleanup
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            cd ~/react-app
+            tar -xzf deployment-package.tar.gz
+            rm -rf deployment-package.tar.gz
+            pm2 serve dist 80 --name "react-app" --spa --no-daemon
