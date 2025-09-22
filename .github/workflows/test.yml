@@ -51,4 +51,5 @@ jobs:
             cd ~/react-app
             tar -xzf deployment-package.tar.gz
             rm -rf deployment-package.tar.gz
+            export PATH=/home/ubuntu/.nvm/versions/node/v22.17.1/bin/pm2:$PATH
             pm2 serve dist 3000 --name "react-app" --spa --no-daemon
