@@ -3,35 +3,35 @@ on:
   push:
     branches:
       - main
+
 jobs:
   deploy:
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Setup node
-      uses: actions/setup-node@v3
-      with:
-         node-version: '18'
-         cache: pnpm
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: pnpm
 
+      - name: Install Dependecies
+        run: pnpm ci
 
-    - name: Install Dependecies
-      run: pnpm ci
+      - name: Build production
+        run: pnpm run build
 
-    - name: Build production
-      run: pnpm run build
- 
-    - name: create deployment package
-      run: |
-       tar -czf deployment-package.tar.gz dist
+      - name: create deployment package
+        run: |
+          tar -czf deployment-package.tar.gz dist
 
-    - name: Copy files to EC2
-      uses: appleboy/scp-action@v0.1.4
-      with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USER }}
-        key: ${{ secrets.EC2_KEY }}
-        source: "deployment-package.tar.gz"
-        target: "~/react-app/"
+      - name: Copy files to EC2
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          source: "deployment-package.tar.gz"
+          target: "~/react-app/"
