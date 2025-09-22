@@ -51,4 +51,4 @@ jobs:
             cd ~/react-app
             tar -xzf deployment-package.tar.gz
             rm -rf deployment-package.tar.gz
-            pm2 serve dist 80 --name "react-app" --spa --no-daemon
+            pm2 serve dist 3000 --name "react-app" --spa --no-daemon
